@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>個人 CV & 作品集 | Portfolio</title>
+    <title>個人 CV & 作品集 | 日光綠意</title>
 
-    <!-- 1. 引入藝術風 Google 字體 (Cormorant Garamond + 思源宋體) -->
+    <!-- 引入文青藝術風 Google 字體：古典襯線體 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Serif+TC:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Serif+TC:wght@300;400;500&display=swap" rel="stylesheet">
 
     <style>
         /* ==========================================
-           基本樣式與藝術風配色
+           🎨 陽光綠色文青主題配色
            ========================================== */
         :root {
-            --bg-color: #121212;      /* 墨黑背景 */
-            --text-color: #E6E4DF;    /* 米白內文 */
-            --accent-color: #8C8275;  /* 暖灰點綴 */
-            --border-color: rgba(255, 255, 255, 0.1);
+            --bg-color: #F4F6EB;      /* 背景：陽光灑落的淺麥綠色 */
+            --text-color: #354733;    /* 文字：沉穩森林深綠色 */
+            --accent-color: #8C9C7B;  /* 點綴：乾燥尤加利葉綠 */
+            --sunlight: #D4A373;      /* 陽光暖橘色，用於強調 */
+            --border-color: rgba(140, 156, 123, 0.3);
         }
 
         * {
@@ -32,163 +33,267 @@
             color: var(--text-color);
             font-family: 'Noto Serif TC', serif;
             line-height: 1.8;
-            letter-spacing: 0.03em;
+            letter-spacing: 0.04em;
             padding: 0 5%;
-            max-width: 1100px;
+            max-width: 900px; /* 文青風適合較窄的閱讀版面 */
             margin: 0 auto;
         }
 
-        /* 標題套用古典襯線字體 */
         h1, h2, h3 {
             font-family: 'Cormorant Garamond', 'Noto Serif TC', serif;
-            font-weight: 300;
+            font-weight: 400;
             letter-spacing: 0.08em;
+            color: var(--text-color);
         }
 
-        /* 區塊留白 */
         section {
-            padding: 100px 0;
+            padding: 90px 0;
             border-bottom: 1px solid var(--border-color);
         }
 
-        /* 圖片藝術風格與 Hover 效果 */
+        /* 去除最後一個區塊的底線 */
+        section:last-child {
+            border-bottom: none;
+        }
+
+        /* 標題設計 */
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .section-title::after {
+            content: "";
+            height: 1px;
+            flex-grow: 1;
+            background-color: var(--border-color);
+        }
+
+        /* 圖片藝術風格設定 */
         img {
             max-width: 100%;
             height: auto;
             display: block;
-            filter: grayscale(80%);
-            transition: filter 0.8s ease, transform 0.8s ease;
-            border-radius: 4px;
+            border-radius: 2px;
+            filter: sepia(20%) hue-rotate(60deg) saturate(80%); /* 加上一點綠色底片濾鏡感 */
+            transition: filter 1s ease, transform 1.2s ease;
         }
 
         img:hover {
-            filter: grayscale(0%);
+            filter: sepia(0%) hue-rotate(0deg) saturate(100%);
             transform: scale(1.02);
         }
 
         /* ==========================================
-           🎬 上下 Scroll 淡入淡出 (Fade In / Fade Out) 特效
+           🎬 上下 Scroll 淡入淡出特效
            ========================================== */
         .fade-section {
             opacity: 0;
-            transform: translateY(40px);
-            /* 藝術風流暢動畫 Bezier 曲線 */
-            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
-                        transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(45px);
+            transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), 
+                        transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
             will-change: opacity, transform;
         }
 
-        /* 當進入畫面時觸發的狀態 */
         .fade-section.is-visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* 簡單的按鈕與連結樣式 */
-        a {
-            color: var(--text-color);
-            text-decoration: none;
-            border-bottom: 1px solid var(--accent-color);
-            transition: color 0.3s ease;
+        /* ==========================================
+           佈局樣式 (Grid & Flex)
+           ========================================== */
+        .timeline-item {
+            margin-bottom: 30px;
+            padding-left: 20px;
+            border-left: 2px solid var(--accent-color);
         }
 
-        a:hover {
+        .timeline-date {
+            font-size: 0.9rem;
+            color: var(--sunlight);
+            font-family: 'Cormorant Garamond', serif;
+            margin-bottom: 5px;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .skill-tag {
+            border: 1px solid var(--accent-color);
             color: var(--accent-color);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
         }
 
-        .grid {
+        .skill-tag:hover {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+        }
+
+        .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 40px;
-            margin-top: 40px;
         }
     </style>
 </head>
 <body>
 
-    <!-- 1. 首頁 Hero 區塊 -->
-    <section class="fade-section" style="min-height: 80vh; display: flex; align-items: center;">
-        <div>
-            <h1 style="font-size: 3.5rem; margin-bottom: 20px;">Your Name.</h1>
-            <p style="font-size: 1.2rem; color: var(--accent-color); max-width: 600px;">
-                Visual Designer & Digital Creator based in Taipei. <br>
-                專注於將藝術美學融入數位體驗與品牌設計中。
+    <!-- 首頁 Hero 區塊 -->
+    <section class="fade-section" style="min-height: 85vh; display: flex; flex-direction: column; justify-content: center;">
+        <p style="color: var(--sunlight); font-size: 1.1rem; margin-bottom: 10px;">Hello, I am</p>
+        <h1 style="font-size: 4rem; line-height: 1.1; margin-bottom: 30px;">Carmen Lee.</h1>
+        <p style="font-size: 1.2rem; color: var(--accent-color); max-width: 500px;">
+            熱愛生活與設計的創意工作者。<br>
+            喜歡在陽光綠意中尋找靈感，用溫暖的視角說故事。
+        </p>
+    </section>
+
+    <!-- 1. 個人資料 (About) -->
+    <section id="about" class="fade-section">
+        <h2 class="section-title">01 / 個人資料 About Me</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; align-items: center;">
+            <div>
+                <!-- 替換成你的大頭照 -->
+                <img src="images/profile.jpg" alt="Profile Image" onerror="this.src='https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=800&q=80'">
+            </div>
+            <div>
+                <p style="margin-bottom: 20px;">
+                    你好，我是 Carmen。我擅長將繁雜的資訊化為簡約優雅的視覺設計。我相信最好的設計不只是好看，而是能帶來如沐春風般的體驗。
+                </p>
+                <ul style="list-style: none; color: var(--accent-color);">
+                    <li style="margin-bottom: 8px;">📍 台北, 台灣 (Taipei, Taiwan)</li>
+                    <li style="margin-bottom: 8px;">✉️ carmen@example.com</li>
+                    <li style="margin-bottom: 8px;">🌱 興趣：攝影、植栽、閱讀</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. 學歷 (Education) -->
+    <section id="education" class="fade-section">
+        <h2 class="section-title">02 / 學歷 Education</h2>
+        <div class="timeline-item">
+            <div class="timeline-date">2018 - 2022</div>
+            <h3 style="font-size: 1.3rem;">國立陽光大學 視覺傳達設計系</h3>
+            <p style="color: var(--accent-color); font-size: 0.95rem; margin-top: 5px;">
+                學士學位 / 畢業專題獲選為年度最佳設計獎
+            </p>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-date">2021 - 2021</div>
+            <h3 style="font-size: 1.3rem;">日本藝術學院 交換學生</h3>
+            <p style="color: var(--accent-color); font-size: 0.95rem; margin-top: 5px;">
+                主修跨媒材藝術與當代美學
             </p>
         </div>
     </section>
 
-    <!-- 2. 關於我 (About) -->
-    <section id="about" class="fade-section">
-        <h2 style="font-size: 2rem; margin-bottom: 30px;">01 / ABOUT</h2>
-        <div class="grid" style="align-items: center;">
-            <div>
-                <!-- 替換成你的個人照片：images/profile.jpg -->
-                <img src="images/profile.jpg" alt="個人照片" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80'">
+    <!-- 3. 工作經驗 (Experience) -->
+    <section id="experience" class="fade-section">
+        <h2 class="section-title">03 / 工作經驗 Experience</h2>
+        <div class="timeline-item">
+            <div class="timeline-date">2022 Present</div>
+            <h3 style="font-size: 1.3rem;">綠葉創意行銷 / 資深視覺設計師</h3>
+            <p style="margin-top: 10px; font-size: 0.95rem;">
+                負責品牌識別設計、企劃主視覺定調。帶領團隊完成超過 20 個大型品牌重塑專案，並導入美學與永續環保概念於包裝設計中。
+            </p>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-date">2021 - 2022</div>
+            <h3 style="font-size: 1.3rem;">日和設計工作室 / 設計實習生</h3>
+            <p style="margin-top: 10px; font-size: 0.95rem;">
+                協助社群圖文排版、插畫繪製，以及官網 UI 介面設計。
+            </p>
+        </div>
+    </section>
+
+    <!-- 4. 專業技能 (Skills) -->
+    <section id="skills" class="fade-section">
+        <h2 class="section-title">04 / 專業技能 Skills</h2>
+        <div style="margin-bottom: 25px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 15px; color: var(--sunlight);">設計與藝術 (Design & Art)</h3>
+            <div class="skills-container">
+                <span class="skill-tag">Adobe Illustrator</span>
+                <span class="skill-tag">Photoshop</span>
+                <span class="skill-tag">Figma</span>
+                <span class="skill-tag">品牌識別 (CIS)</span>
+                <span class="skill-tag">商業攝影</span>
             </div>
-            <div>
-                <p style="margin-bottom: 20px;">
-                    這裡填寫你的個人介紹。你可以分享你的設計理念、過去的經歷以及你熱愛創造的事物。
-                </p>
-                <p style="color: var(--accent-color);">
-                    技能領域：UI/UX Design, Visual Identity, Front-end Development
-                </p>
+        </div>
+        <div>
+            <h3 style="font-size: 1.1rem; margin-bottom: 15px; color: var(--sunlight);">前端與程式 (Development)</h3>
+            <div class="skills-container">
+                <span class="skill-tag">HTML5 / CSS3</span>
+                <span class="skill-tag">JavaScript</span>
+                <span class="skill-tag">No-Code (Webflow, Framer)</span>
             </div>
         </div>
     </section>
 
-    <!-- 3. 精選作品 (Projects) -->
-    <section id="projects" class="fade-section">
-        <h2 style="font-size: 2rem; margin-bottom: 30px;">02 / SELECTED WORKS</h2>
-        <div class="grid">
-            <!-- 作品卡片 1 -->
+    <!-- 5. 作品集 (Portfolio) -->
+    <section id="portfolio" class="fade-section">
+        <h2 class="section-title">05 / 作品集 Portfolio</h2>
+        <div class="portfolio-grid">
+            <!-- 作品 1 -->
             <div>
-                <!-- 替換成你的作品縮圖：images/project-1.jpg -->
-                <img src="images/project-1.jpg" alt="專案名稱 1" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80'">
-                <h3 style="font-size: 1.4rem; margin-top: 15px;">Project Title 01</h3>
-                <p style="color: var(--accent-color); font-size: 0.9rem;">Branding & Web Design</p>
+                <img src="images/portfolio-1.jpg" alt="品牌包裝設計" onerror="this.src='https://images.unsplash.com/photo-1544626053-8985dc34ae63?auto=format&fit=crop&w=800&q=80'">
+                <h3 style="margin-top: 15px; font-size: 1.2rem;">春日茶飲品牌包裝</h3>
+                <p style="color: var(--accent-color); font-size: 0.9rem;">Branding / Packaging</p>
             </div>
-
-            <!-- 作品卡片 2 -->
+            <!-- 作品 2 -->
             <div>
-                <!-- 替換成你的作品縮圖：images/project-2.jpg -->
-                <img src="images/project-2.jpg" alt="專案名稱 2" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80'">
-                <h3 style="font-size: 1.4rem; margin-top: 15px;">Project Title 02</h3>
-                <p style="color: var(--accent-color); font-size: 0.9rem;">Interactive Exhibition</p>
+                <img src="images/portfolio-2.jpg" alt="網頁設計" onerror="this.src='https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=800&q=80'">
+                <h3 style="margin-top: 15px; font-size: 1.2rem;">漫步森林展覽網站</h3>
+                <p style="color: var(--accent-color); font-size: 0.9rem;">UI/UX / Web Design</p>
+            </div>
+            <!-- 作品 3 -->
+            <div>
+                <img src="images/portfolio-3.jpg" alt="攝影集" onerror="this.src='https://images.unsplash.com/photo-1476820865390-c52aeebb9891?auto=format&fit=crop&w=800&q=80'">
+                <h3 style="margin-top: 15px; font-size: 1.2rem;">日光植物誌</h3>
+                <p style="color: var(--accent-color); font-size: 0.9rem;">Photography / Editorial</p>
             </div>
         </div>
     </section>
 
-    <!-- 4. 聯絡方式 (Contact) -->
-    <section id="contact" class="fade-section" style="border-bottom: none; text-align: center; padding: 150px 0;">
-        <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Let's Create Together</h2>
-        <p style="margin-bottom: 30px; color: var(--accent-color);">期待與你聊聊新的合作機會或想法。</p>
-        <a href="mailto:your.email@example.com" style="font-size: 1.2rem;">your.email@example.com</a>
-    </section>
+    <!-- 頁尾 -->
+    <footer class="fade-section" style="padding: 60px 0; text-align: center; font-size: 0.9rem; color: var(--accent-color); border-top: 1px solid var(--border-color);">
+        <p>© 2026 Carmen Lee. All rights reserved.</p>
+    </footer>
 
     <!-- ==========================================
-       JS 偵測 Intersection Observer
+       JS：上下捲動淡入淡出核心腳本
        ========================================== -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const observerOptions = {
                 root: null,
                 rootMargin: "0px",
-                threshold: 0.15 // 當區塊出現 15% 時觸發淡入，低於 15% 時觸發淡出
+                threshold: 0.15 // 當區塊進入畫面 15% 時觸發
             };
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // 滾動進入視窗：加入 is-visible (淡入)
+                        // 滾動進入視窗：淡入 (Fade In)
                         entry.target.classList.add("is-visible");
                     } else {
-                        // 滾動離開視窗（無論往上或往下）：移除 is-visible (淡出)
+                        // 滾動離開視窗（無論往上或往下）：淡出 (Fade Out)
                         entry.target.classList.remove("is-visible");
                     }
                 });
             }, observerOptions);
 
-            // 監聽所有帶有 .fade-section class 的區塊
+            // 為所有加上 fade-section 的區塊掛上監聽器
             document.querySelectorAll(".fade-section").forEach(el => {
                 observer.observe(el);
             });
